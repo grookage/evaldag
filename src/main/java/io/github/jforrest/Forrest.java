@@ -1,4 +1,4 @@
-package dag;
+package io.github.jforrest;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -109,7 +109,7 @@ public abstract class Forrest {
       return empty();
     } else {
       return concat(
-          of(origin),
+          Stream.of(origin),
           origin.getOutgoingEdges().stream()
               .flatMap(each -> flattened(getNormalizedVertex(each.getDestination()), closedSet))
       );

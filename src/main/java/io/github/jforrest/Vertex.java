@@ -1,4 +1,4 @@
-package dag;
+package io.github.jforrest;
 
 import com.google.common.collect.ComparisonChain;
 import lombok.Getter;
