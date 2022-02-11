@@ -1,6 +1,4 @@
-package io.github.jforrest;
-
-/**
+/*
  * Copyright 2017 Koushik R <rkoushik.14@gmail.com>.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,9 +12,10 @@ package io.github.jforrest;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
+ */
+package com.grookage.evaldag;
 
-
+import com.grookage.evaldag.exceptions.Exceptions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,6 +34,7 @@ import static java.util.stream.Stream.*;
  * Type to <T> if you were to introduce weights for edges later on. Right now there aren't any
  * edges.
  */
+@SuppressWarnings("unused")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -52,9 +52,8 @@ public abstract class Forrest {
 
   private Vertex getNormalizedVertex(String vertexId) {
     if (!nodes.containsKey(vertexId)) {
-      throw new RuntimeException("NO NODE FOUND : Can't construct the entity graph");
+        Exceptions.illegalState("NO NODE FOUND : Can't construct the entity graph");
     }
-
     return nodes.get(vertexId);
   }
 
@@ -62,17 +61,13 @@ public abstract class Forrest {
    * An internal function to add an edge to the existing categoryGraph. Checks for cycles before an
    * edge gets added.
    *
-   * @return the edge that got added
    */
-  private Edge addEdge(Edge edge) {
+  private void addEdge(Edge edge) {
     if (cycleExists(edge)) {
-      throw new RuntimeException("CYCLIC DEPENDENCY : Can't construct the entity graph");
+      Exceptions.illegalState("CYCLIC DEPENDENCY : Can't construct the entity graph");
     }
-
     getNormalizedVertex(edge.getSource()).addOutgoingEdge(edge);
     getNormalizedVertex(edge.getDestination()).addIncomingEdge(edge);
-
-    return edge;
   }
 
   /**
@@ -83,17 +78,8 @@ public abstract class Forrest {
    * @return true if there exists a path, if not false.
    */
   private boolean cycleExists(Vertex start, Vertex goal) {
-    ArrayList<Edge> incomingEdges = start.getIncomingEdges();
-    for (Edge categoryEdge : incomingEdges) {
-      if (categoryEdge.getSource().equalsIgnoreCase(goal.getId())) {
-        return true;
-      }
-      if (cycleExists(getNormalizedVertex(categoryEdge.getSource()), goal)) {
-        return true;
-      }
-    }
-
-    return false;
+      final var incomingEdges = start.getIncomingEdges();
+      return incomingEdges.stream().anyMatch(edge -> edge.getSource().equalsIgnoreCase(goal.getId()) || cycleExists(getNormalizedVertex(edge.getSource()), goal));
   }
 
   /**
@@ -113,7 +99,7 @@ public abstract class Forrest {
    * error it there exists a cycle
    */
   public void addEdges(Set<Edge> edges) {
-    edges.stream().forEach(this::addEdge);
+      edges.forEach(this::addEdge);
   }
 
   /**
@@ -139,8 +125,7 @@ public abstract class Forrest {
    * @return the list of verticies that can reached from the given id
    */
   public List<Vertex> subTree(String id) {
-    final Set<Vertex> closedSet = synchronizedSet(new HashSet<Vertex>());
+    final var closedSet = synchronizedSet(new HashSet<Vertex>());
     return flattened(getNormalizedVertex(id), closedSet).parallel().collect(Collectors.toList());
   }
-
 }

@@ -1,31 +1,17 @@
-# JForrest [![Travis build status](https://travis-ci.org/koushikr/jforrest.svg?branch=master)](https://travis-ci.org/koushikr/jforrest)
+# Evaldag [![Build](https://github.com/grookage/evaldag/actions/workflows/build.yml/badge.svg)](https://github.com/grookage/evaldag/actions/workflows/build.yml)
 
 > Mama always said graphs are a part of life!
       
 JForrest is a very simple java DAG representation. If you are looking for a quick way to represent a DAG, here goes!
 
 ### Maven Dependency
-Use the following repository:
-```xml
-<repository>
-    <id>clojars</id>
-    <name>Clojars repository</name>
-    <url>https://clojars.org/repo</url>
-</repository>
-```
-Use the following maven dependency:
-```xml
-<dependency>
-    <groupId>io.github.jforrest</groupId>
-    <artifactId>jforrest</artifactId>
-    <version>0.0.1</version>
-</dependency>
-```
+
+WIP, will add a dependency once tests are added. 
 
 ### Build instructions
   - Clone the source:
 
-        git clone github.com/koushikr/jforrest
+        git clone github.com/grookage/evaldag
 
   - Build
 
