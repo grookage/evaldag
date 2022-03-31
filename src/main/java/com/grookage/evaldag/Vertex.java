@@ -38,7 +38,7 @@ public class Vertex implements Comparable<Vertex> {
     this.id = id;
   }
 
-  /**
+  /*
    * Adds an edge as an incoming edge to this vertex.
    *
    * @param edge an edge to be added as incoming.
@@ -47,7 +47,7 @@ public class Vertex implements Comparable<Vertex> {
     incomingEdges.add(edge);
   }
 
-  /**
+  /*
    * Adds an edge as an outgoing edge from this vertex.
    *
    * @param edge an edge to be added as outgoing.
@@ -56,20 +56,18 @@ public class Vertex implements Comparable<Vertex> {
     outgoingEdges.add(edge);
   }
 
-  /**
+  /*
    * Checks if a given entity is a part of its incoming edges, immediate ones.
    */
   public boolean isPartOfIncoming(String categoryId) {
-    return this.getIncomingEdges().stream()
-        .filter(each -> each.getSource().equalsIgnoreCase(categoryId)).count() > 0;
+    return this.getIncomingEdges().stream().anyMatch(each -> each.getSource().equalsIgnoreCase(categoryId));
   }
 
-  /**
+  /*
    * Checks if a given entity is a part of its outgoing edges, immediate ones.
    */
   public boolean isPartOfOutgoing(String categoryId) {
-    return this.getOutgoingEdges().stream()
-        .filter(each -> each.getDestination().equalsIgnoreCase(categoryId)).count() > 0;
+    return this.getOutgoingEdges().stream().anyMatch(each -> each.getDestination().equalsIgnoreCase(categoryId));
   }
 
   @Override

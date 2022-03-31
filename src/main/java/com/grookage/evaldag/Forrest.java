@@ -27,11 +27,11 @@ import java.util.stream.Stream;
 import static java.util.Collections.synchronizedSet;
 import static java.util.stream.Stream.*;
 
-/**
+/*
  * Created by koushikr on 19/09/17.
  *
  * The abstract class that has to be extended by all the implementations that require a DAG usage.
- * Type to <T> if you were to introduce weights for edges later on. Right now there aren't any
+ * Type to T if you were to introduce weights for edges later on. Right now there aren't any
  * edges.
  */
 @SuppressWarnings("unused")
@@ -42,7 +42,7 @@ public abstract class Forrest {
 
   private Map<String, Vertex> nodes = new HashMap<>();
 
-  /**
+  /*
    * Constructor : Holds to the entire nodeList regardless of their mapping. A addEdges method needs
    * to be called to make sure that the DAG is well constructed.
    */
@@ -57,7 +57,7 @@ public abstract class Forrest {
     return nodes.get(vertexId);
   }
 
-  /**
+  /*
    * An internal function to add an edge to the existing categoryGraph. Checks for cycles before an
    * edge gets added.
    *
@@ -70,7 +70,7 @@ public abstract class Forrest {
     getNormalizedVertex(edge.getDestination()).addIncomingEdge(edge);
   }
 
-  /**
+  /*
    * A function used to check if there is a path between two vertices.
    *
    * @param start the starting vertex.
@@ -82,7 +82,7 @@ public abstract class Forrest {
       return incomingEdges.stream().anyMatch(edge -> edge.getSource().equalsIgnoreCase(goal.getId()) || cycleExists(getNormalizedVertex(edge.getSource()), goal));
   }
 
-  /**
+  /*
    * Check cycle existence, with edge as the supplied argument
    *
    * @return true if there exists a path, false otherwise
@@ -94,7 +94,7 @@ public abstract class Forrest {
     );
   }
 
-  /**
+  /*
    * A function to add all the edges to the given DAG. Checks for cycle existence and throws an
    * error it there exists a cycle
    */
@@ -102,7 +102,7 @@ public abstract class Forrest {
       edges.forEach(this::addEdge);
   }
 
-  /**
+  /*
    * Helper to support the above BFS operation
    *
    * @return A stream of verticies.
@@ -119,7 +119,7 @@ public abstract class Forrest {
     }
   }
 
-  /**
+  /*
    * Gets a Subgraph by performing BFS, on the DAG.
    *
    * @return the list of verticies that can reached from the given id
