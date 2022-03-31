@@ -2,7 +2,7 @@
 
 > Mama always said graphs are a part of life!
       
-JForrest is a very simple java DAG representation. If you are looking for a quick way to represent a DAG, here goes!
+EvalDag is a very simple java DAG representation. If you are looking for a quick way to represent a DAG, here goes!
 
 ### Maven Dependency
 
